@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: IMAGE_PLACEHOLDER
+        image: IMAGE_PLACEHOLDER   # <-- This will be replaced by Jenkins pipeline
         ports:
         - containerPort: 3000
         readinessProbe:
