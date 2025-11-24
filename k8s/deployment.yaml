@@ -1,20 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: news-aggregator
+  name: cloud-node-api
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: news-aggregator
+      app: cloud-node-api
   template:
     metadata:
       labels:
-        app: news-aggregator
+        app: cloud-node-api
     spec:
       containers:
-      - name: news-aggregator
-        image: bhoomika714442/news-aggregator:latest
+      - name: app
+        image: IMAGE_PLACEHOLDER
         ports:
-        - containerPort: 5000
-
+        - containerPort: 3000
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 10
