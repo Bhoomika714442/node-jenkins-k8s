@@ -48,14 +48,15 @@ pipeline {
         }
 
         stage('Deploy to Kubernetes') {
-            steps {
-                bat """
-                    powershell -Command "(Get-Content deployment.yaml) -replace 'IMAGE_PLACEHOLDER', '${DOCKER_IMAGE}:${IMAGE_TAG}' | Set-Content k8s-deploy-${IMAGE_TAG}.yaml"
-                    kubectl apply -f k8s-deploy-${IMAGE_TAG}.yaml
-                    kubectl rollout status deployment/node-app --timeout=120s
-                """
-            }
-        }
+    steps {
+        bat """
+        powershell -Command "(Get-Content k8s/deployment.yaml) -replace 'IMAGE_PLACEHOLDER', 'bhoomika714442/node-jenkins-k8s:9' | Set-Content k8s/k8s-deploy-9.yaml"
+        kubectl apply -f k8s/k8s-deploy-9.yaml
+        kubectl rollout status deployment/cloud-node-api --timeout=120s
+        """
+    }
+}
+
     }
 
     post {
